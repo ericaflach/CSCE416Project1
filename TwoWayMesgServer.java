@@ -65,6 +65,29 @@ public class TwoWayMesgServer {
 				// Display the message
 				System.out.println("Client: " + message);
 			}
+
+			// Prepare to write to server with auto flush on
+			PrintWriter toServerWriter =
+					new PrintWriter(clientSock.getOutputStream(), true);
+
+			// Prepare to read from keyboard
+			BufferedReader fromUserReader = new BufferedReader(
+					new InputStreamReader(System.in));
+
+			// Keep doing till we get EOF from user
+			while (true) {
+				// Read a line from the keyboard
+				String line = fromUserReader.readLine();
+
+				// If we get null, it means user is done
+				if (line == null) {
+					System.out.println("Closing connection");
+					break;
+				}
+
+				// Send the line to the server
+				toServerWriter.println(line);
+			}
 		}	
 		catch(Exception e) {
 			// Print the exception message

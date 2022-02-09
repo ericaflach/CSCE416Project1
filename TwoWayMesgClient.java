@@ -60,6 +60,26 @@ public class TwoWayMesgClient {
 				toServerWriter.println(line);
 			}
 
+			// Prepare to read from client
+			BufferedReader fromClientReader = new BufferedReader(
+					new InputStreamReader(sock.getInputStream()));
+
+			// Keep serving the client
+			while (true) {
+				// Read a message from the client
+				String message = fromClientReader.readLine();
+
+				// If we get null, it means client sent EOF
+				if (message == null) {
+					System.out.println("Client closed connection");
+					sock.close();
+					break;
+				}
+
+				// Display the message
+				System.out.println("Client: " + message);
+			}
+
 			// close the socket and exit
 			toServerWriter.close();
 			sock.close();
