@@ -49,7 +49,7 @@ public class TwoWayMesgServer {
 			// Prepare to read from client
 			BufferedReader fromClientReader = new BufferedReader(
 					new InputStreamReader(clientSock.getInputStream()));
-		
+
 			// Keep serving the client
 			while (true) {
 				// Read a message from the client
